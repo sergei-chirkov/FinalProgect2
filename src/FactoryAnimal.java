@@ -1,6 +1,3 @@
-import Organizm.Animals.*;
-import Plants.Plants;
-
 import java.util.Random;
 
 public class FactoryAnimal {
@@ -23,7 +20,6 @@ public class FactoryAnimal {
 
         switch (type) {
             case Wolf -> predator = new Wolf();
-            case Fox -> predator = new Fox();
 
         }
         return predator;
@@ -47,7 +43,6 @@ public class FactoryAnimal {
         HerbivoreType type = HerbivoreType.values()[value];
 
         switch (type) {
-            case Dug -> herbivore = new Dug();
 
         }
         return herbivore;
