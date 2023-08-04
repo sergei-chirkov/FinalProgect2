@@ -1,25 +1,24 @@
+package ru.javarush.chirkov.island;
+
+import ru.javarush.chirkov.organizm.Organizm;
+import ru.javarush.chirkov.*;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class Island {
     private  int lenght = 2;
     private  int height = 2;
     private static Island island;
 
-    private class Loc{
-        List<Organizm> organizms;
-    }
-    public Location [][] locations = new Location[lenght][height];
+    public Location[][] locations = new Location[lenght][height];
 
     private Island(){
 
         for (int i = 0; i < lenght; i++){
             for(int j = 0; j < height; j++){
-                locations[i][j] = new Location(i,j);
+                locations[i][j] = new Location(i+j);
                 locations[i][j].organizms.add(FactoryAnimal.createHerbivore());
-
             }
         }
         for (int i = 0; i < lenght; i++){

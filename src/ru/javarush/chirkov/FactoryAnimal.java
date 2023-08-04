@@ -1,3 +1,9 @@
+package ru.javarush.chirkov;
+
+import ru.javarush.chirkov.organizm.herbivore.*;
+import ru.javarush.chirkov.organizm.plants.*;
+import ru.javarush.chirkov.organizm.predator.*;
+
 import java.util.Random;
 
 public class FactoryAnimal {

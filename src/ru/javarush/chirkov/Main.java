@@ -1,5 +1,12 @@
+package ru.javarush.chirkov;
+
+import ru.javarush.chirkov.island.*;
+import ru.javarush.chirkov.organizm.herbivore.*;
+import ru.javarush.chirkov.organizm.predator.*;
+import ru.javarush.chirkov.servesice.*;
+import ru.javarush.chirkov.organizm.Animal;
+
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -38,18 +45,28 @@ public class Main {
         System.out.println("local" + local);
         System.out.println("Add Animal in the new Local");
         Random random = new Random();
-        int step = random.nextInt(wolf.speed);
+        int length = 3;
+        int heigth = 3;
+        int step = random.nextInt(wolf.getSpeed());
         System.out.println("step " + step);
         int shiftX = wolf.vectorMove();
         int shiftY = wolf.vectorMove();
-
-        int newLocalX = ((local)%(3 + 1) + shiftX * step)%3;
-        System.out.println("shiftX + shiftY " + shiftX + " " + shiftY + " " + ((local )%(3 + 1)));
-        int newLocalY = (local/3 + shiftY * step) * 3;
+        int newLocalX = ((local)%length + step*shiftX) < length ?  (local)%length + step*shiftX : length -1;
+        int localY = local / (length - 1) + shiftY * step;
+        int newLocalY = localY < heigth ? (localY - 1) * length : (heigth - 1)*length;
+        System.out.println("shiftX + shiftY " + shiftX + " " + shiftY);
         int newLocal = newLocalX + newLocalY;
-        System.out.println("newLocal " + newLocal + " = " + newLocalX + " + " + newLocalY);
+        System.out.println("newLocal " + newLocal + " = " + newLocalX + " + " + newLocalY );
+        if(newLocal < 0){
+            newLocalX = Math.max(newLocalX, 0);
+            newLocalY =Math.max(newLocalY,0);
+            newLocal = newLocalY + newLocalX;
+        }
+        System.out.println("new local " + newLocal);
         locations.stream().filter(x->x.organizms.contains(wolf));
         System.out.println("--------------");
+
+
 
 
 
