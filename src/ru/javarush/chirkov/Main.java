@@ -41,7 +41,7 @@ public class Main {
         System.out.println("---------3-move----------");
         System.out.println("Find id Local");
         Optional<Location> loc = locations.stream().filter(x->x.organizms.contains(wolf)).findFirst();
-        int local = loc.get().getX();
+        int local = loc.get().getId();
         System.out.println("local" + local);
         System.out.println("Add Animal in the new Local");
         Random random = new Random();

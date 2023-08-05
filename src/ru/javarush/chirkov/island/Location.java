@@ -10,11 +10,11 @@ public class Location {
 
     public List<Organizm> organizms;
 
-    public Location(int i) {
+    public Location(int id) {
         this.organizms = new ArrayList<>();
-        id = i;
+        id = id;
     }
-    public int getX() {
+    public int getId() {
         return id;
     }
 

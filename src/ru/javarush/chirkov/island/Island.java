@@ -7,31 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Island {
-    private  int lenght = 2;
-    private  int height = 2;
+    private final int lenght = 2;
+    private final int height = 2;
     private static Island island;
 
-    public Location[][] locations = new Location[lenght][height];
+    public List<Location> locations = new ArrayList<>();
 
     private Island(){
-
-        for (int i = 0; i < lenght; i++){
-            for(int j = 0; j < height; j++){
-                locations[i][j] = new Location(i+j);
-                locations[i][j].organizms.add(FactoryAnimal.createHerbivore());
-            }
+        //creat island
+        for (int i = 0; i < lenght * height; i++){
+                locations.add(new Location(i));
         }
-        for (int i = 0; i < lenght; i++){
-            for(int j = 0; j < height; j++){
-                System.out.printf("--------%d-%d------\n",i,j);
-                locations[i][j].print();
-                System.out.println("-----------------");
-            }
-        }
-        for (int i = 0; i < lenght; i++){
-            for(int j = 0; j < height; j++){
-
-            }
+        //add Organizm to Isaland
+        for (int i = 0; i < lenght * height; i++){
+            locations.stream().map(location->location.organizms)
+                    .forEach(organizms -> {
+                        organizms.add(FactoryAnimal.createHerbivore());
+                        organizms.add(FactoryAnimal.createPlants());
+                    });
         }
 
     }
