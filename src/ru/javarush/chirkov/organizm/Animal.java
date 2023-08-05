@@ -1,13 +1,14 @@
 package ru.javarush.chirkov.organizm;
 
 
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
 
 import ru.javarush.chirkov.island.Island;
 import ru.javarush.chirkov.island.Location;
 import ru.javarush.chirkov.servesice.*;
+import ru.javarush.chirkov.tasks.TaskMove;
+
 public abstract class Animal extends Organizm implements Moving {
     int voluem;
 
@@ -21,7 +22,7 @@ public abstract class Animal extends Organizm implements Moving {
         int oldLocation = getLocation();
         int newLocation = newLocation();
         if(oldLocation!=newLocation){
-
+            TaskMove.queue.add(new TaskMove(this,oldLocation,newLocation));
         }
     }
     //location is the Animal located

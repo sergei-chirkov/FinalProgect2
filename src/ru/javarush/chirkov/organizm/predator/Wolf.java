@@ -1,5 +1,7 @@
 package ru.javarush.chirkov.organizm.predator;
 
+import java.util.Random;
+
 public class Wolf extends Predator{
     private static final int WEIGHT = 50;
     private static final int MAXANIMAL = 30;
