@@ -18,9 +18,7 @@ public class Island {
             locations.add(new Location(i));
         }
         //add Organizm to Isaland
-        for (int i = 0; i < lenght * height; i++) {
-            locations.forEach(Location::addOrganizm);
-        }
+        locations.forEach(Location::addOrganizm);
 
     }
 
@@ -38,7 +36,6 @@ public class Island {
     public int getHeight() {
         return height;
     }
-
 
 
 //    public Location getLocation(int id){

@@ -11,4 +11,9 @@ public class Wolf extends Predator{
     public Wolf() {
         super(WEIGHT,MAXANIMAL,SPEED,NEEDFOOD);
     }
+
+    @Override
+    public String toString() {
+        return "Wolf";
+    }
 }

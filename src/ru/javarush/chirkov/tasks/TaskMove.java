@@ -7,7 +7,8 @@ import java.util.Queue;
 import ru.javarush.chirkov.island.Island;
 import ru.javarush.chirkov.organizm.*;
 
-public class TaskMove extends Task{
+public class TaskMove extends Task {
+//    public static Queue<TaskMove> queue = new LinkedList<>();
     private final int oldLocation;
     private final Organizm organizm;
     private final int newLocation;
@@ -19,7 +20,10 @@ public class TaskMove extends Task{
     }
 
 
-    public void start() {
+
+
+    public void run() {
+//        queue.poll();
         Island island = Island.getInstance();
         // remove organizm in the Old Location;
         island.locations.get(oldLocation).organizms.remove(organizm);
@@ -29,7 +33,7 @@ public class TaskMove extends Task{
         long count = list.stream().filter(organizm1 -> organizm1.getClass().equals(organizm.getClass())).count();
 
         //check and add organizm in the new Location
-        if(organizm.getMaxAnimal() > count){
+        if (organizm.getMaxAnimal() > count) {
             island.locations.get(newLocation).organizms.add(organizm);
         }
     }

@@ -1,5 +1,6 @@
 package ru.javarush.chirkov.organizm.predator;
 
+import ru.javarush.chirkov.island.Location;
 import ru.javarush.chirkov.organizm.Animal;
 
 public abstract class Predator extends Animal {
@@ -7,4 +8,8 @@ public abstract class Predator extends Animal {
         super(weight, maxAnimal, speed, needfood);
     }
 
+    @Override
+    public void eat(Location location) {
+
+    }
 }

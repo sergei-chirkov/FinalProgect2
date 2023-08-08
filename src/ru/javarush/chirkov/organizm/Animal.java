@@ -9,7 +9,7 @@ import ru.javarush.chirkov.island.Location;
 import ru.javarush.chirkov.servesice.*;
 import ru.javarush.chirkov.tasks.TaskMove;
 
-public abstract class Animal extends Organizm implements Moving {
+public abstract class Animal extends Organizm implements Moving, Eating{
     int voluem;
 
     public Animal(int weight, int maxAnimal, int speed, double needfood) {
@@ -52,15 +52,11 @@ public abstract class Animal extends Organizm implements Moving {
 
         return newLocalX + newLocalY;
     }
-
-
-
     public int vectorMove() {
         Random random = new Random();
         int move = random.nextInt(3) - 1;
         return move;
     }
-
 
 
 }

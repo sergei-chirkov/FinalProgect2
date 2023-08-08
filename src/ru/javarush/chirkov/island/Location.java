@@ -3,9 +3,8 @@ package ru.javarush.chirkov.island;
 import ru.javarush.chirkov.FactoryAnimal;
 import ru.javarush.chirkov.organizm.Organizm;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Location {
     private int id;
@@ -21,12 +20,8 @@ public class Location {
         return id;
     }
 
-    public void print() {
-        organizms.forEach(System.out::println);
-
-    }
-
     public void addOrganizm() {
+
         Organizm herbivore = FactoryAnimal.createHerbivore();
         Organizm predator = FactoryAnimal.createPredator();
         Organizm plants = FactoryAnimal.createPlants();
@@ -37,12 +32,14 @@ public class Location {
             for (int i = 0; i < valueHerbivore; i++) {
                 organizms.add(herbivore);
             }
+
         }
         if (predator != null){
-            int valuePredator = random.nextInt(plants.getMaxAnimal());
+            int valuePredator = random.nextInt(predator.getMaxAnimal());
             for (int i = 0; i < valuePredator; i++) {
                 organizms.add(predator);
             }
+
         }
 
         if(plants != null){
@@ -50,7 +47,27 @@ public class Location {
             for (int i = 0; i < valuePlants; i++) {
                 organizms.add(plants);
             }
+
         }
+
+    }
+
+    public void  print(){
+        System.out.println("location " + id);
+        Map<Organizm,Integer> map = new HashMap<>();
+        Set<Organizm> organizmSet = new HashSet<>(organizms);
+        for (Organizm organizm : organizmSet) {
+            int count = 0;
+            for (Organizm org : organizms){
+                if(org.getClass().equals(organizm.getClass())){
+                    count++;
+                }
+
+            }
+            map.put(organizm,count);
+        }
+      map.forEach((key, value)-> System.out.println(key + " " + value));
+
     }
 
 

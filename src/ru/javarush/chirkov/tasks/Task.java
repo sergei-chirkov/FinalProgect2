@@ -8,6 +8,7 @@ public class Task implements Runnable{
 
     @Override
     public void run() {
-        queue.peek().run();
+        queue.forEach(Task::run);
+//        queue.clear();
     }
 }

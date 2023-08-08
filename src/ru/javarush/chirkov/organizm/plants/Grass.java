@@ -7,4 +7,9 @@ public class Grass extends Plants{
     public Grass() {
         super(WEIGTH, MAXVALUEM);
     }
+
+    @Override
+    public String toString() {
+        return "Grass";
+    }
 }
