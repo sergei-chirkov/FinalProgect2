@@ -1,38 +1,45 @@
 package ru.javarush.chirkov.organizm;
 
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
 import ru.javarush.chirkov.island.Island;
 import ru.javarush.chirkov.island.Location;
 import ru.javarush.chirkov.servesice.*;
-import ru.javarush.chirkov.tasks.TaskMove;
 
-public abstract class Animal extends Organizm implements Moving, Eating{
+public abstract class Animal extends Organizm implements Moving, Eating, Died {
     int voluem;
 
-    public Animal(int weight, int maxAnimal, int speed, double needfood) {
+    public Animal(double weight, int maxAnimal, int speed, double needfood) {
         super(weight,maxAnimal,speed,needfood);
     }
 
 
     @Override
-    public void move() {
-        int oldLocation = getLocation();
-        int newLocation = newLocation();
-        if(oldLocation!=newLocation){
-            TaskMove.queue.add(new TaskMove(this,oldLocation,newLocation));
+    public void move(int oldLocation, int newLocation) {
+        if (oldLocation != newLocation && this.isLife()) {
+            Island island = Island.getInstance();
+            // get list organizn ij the new location
+            List<Organizm> list = island.locations.get(newLocation).organizms;
+            long count = list.stream().filter(organizm1 -> organizm1.getClass().equals(this.getClass())).count();
+            //check and add organizm in the new Location
+            if (this.getMaxAnimal() > count) {
+                island.locations.get(newLocation).organizms.add(this);
+            }
+            // remove organizm in the Old Location;
+            island.locations.get(oldLocation).organizms.remove(this);
         }
     }
     //location is the Animal located
-    private int getLocation(){
+    public int getLocation(){
         Island island = Island.getInstance();
         Optional<Location> loc = island.locations.stream().filter(x->x. organizms.contains(this)).findFirst();
         return loc.get().getId();
     }
     //get new Location for Animal
-    private int newLocation(){
+    public int newLocation(){
         Island island = Island.getInstance();
         int length = island.getLenght();
         int heigth = island.getHeight();
@@ -58,6 +65,11 @@ public abstract class Animal extends Organizm implements Moving, Eating{
         return move;
     }
 
-
+    @Override
+    public void died() {
+        if(this.getFoodStatus() == 0){
+            this.setStausLifeIsDead();
+        }
+    }
 }
 

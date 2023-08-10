@@ -49,7 +49,7 @@ public class FactoryAnimal {
         HerbivoreType type = HerbivoreType.values()[value];
 
         switch (type) {
-
+            case  Dug -> herbivore = new Dug();
         }
         return herbivore;
     }

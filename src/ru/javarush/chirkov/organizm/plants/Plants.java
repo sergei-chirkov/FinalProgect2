@@ -10,6 +10,6 @@ public abstract class Plants extends Organizm {
         super(weight,
                 maxVoluem,
                 0,
-                0, foodStatus);
+                0);
     }
 }

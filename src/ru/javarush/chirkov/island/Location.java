@@ -66,7 +66,7 @@ public class Location {
             }
             map.put(organizm,count);
         }
-      map.forEach((key, value)-> System.out.println(key + " " + value));
+      map.forEach((key, value)-> System.out.println(key + " "  + value));
 
     }
 

@@ -14,6 +14,6 @@ public class Wolf extends Predator{
 
     @Override
     public String toString() {
-        return "Wolf";
+        return "Wolf " + this.getFoodStatus();
     }
 }

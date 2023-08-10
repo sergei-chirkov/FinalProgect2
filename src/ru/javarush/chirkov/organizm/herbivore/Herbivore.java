@@ -6,11 +6,10 @@ import ru.javarush.chirkov.organizm.Organizm;
 import ru.javarush.chirkov.organizm.plants.Plants;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public abstract class Herbivore extends Animal {
-    public Herbivore(int weight, int maxAnimal, int speed, double needfood) {
+    public Herbivore(double weight, int maxAnimal, int speed, double needfood) {
         super(weight, maxAnimal, speed, needfood);
     }
 
@@ -20,11 +19,12 @@ public abstract class Herbivore extends Animal {
 
         List<Organizm> plantsList = location.organizms.stream().filter(organizm -> organizm instanceof Plants).collect(Collectors.toList());
         plantsList.forEach(organizm -> {
-            int weight = organizm.getWeight();
-            if (this.getFoodStatus() < this.getNeedfood()) {
-                setFoodStatus(weight);
-                organizm.setStausLifeIsDead();
-                organizm.setWeight(0);
+            if (this.isLife()) {
+                double weight = organizm.getWeight();
+                if (this.getFoodStatus() < this.getNeedfood()) {
+                    organizm.setWeight(setFoodStatus(weight));
+                    organizm.setStausLifeIsDead();
+                }
             }
         });
     }
