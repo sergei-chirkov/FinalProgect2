@@ -9,7 +9,7 @@ import ru.javarush.chirkov.island.Island;
 import ru.javarush.chirkov.island.Location;
 import ru.javarush.chirkov.servesice.*;
 
-public abstract class Animal extends Organizm implements Moving, Eating, Died {
+public abstract class Animal extends Organizm implements Moving, Eating, Died, Reproduction{
     int voluem;
 
     public Animal(double weight, int maxAnimal, int speed, double needfood) {
@@ -70,6 +70,11 @@ public abstract class Animal extends Organizm implements Moving, Eating, Died {
         if(this.getFoodStatus() == 0){
             this.setStausLifeIsDead();
         }
+    }
+
+    @Override
+    public void reproduction() {
+
     }
 }
 

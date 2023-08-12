@@ -1,9 +1,12 @@
 package ru.javarush.chirkov;
 
+import ru.javarush.chirkov.organizm.Organizm;
 import ru.javarush.chirkov.organizm.herbivore.*;
 import ru.javarush.chirkov.organizm.plants.*;
 import ru.javarush.chirkov.organizm.predator.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class FactoryAnimal {
@@ -17,6 +20,13 @@ public class FactoryAnimal {
         Grass
     }
 
+    public static List<Organizm> creatOrganizm(Organizm organizm, int count){
+        List<Organizm> list = new ArrayList<>();
+        for(int i = 0; i < count; i++){
+            list.add(organizm);
+        }
+        return list;
+    }
 
     public static Predator createPredator() {
         Predator predator = null;
@@ -30,6 +40,10 @@ public class FactoryAnimal {
         }
         return predator;
     }
+       public  static Organizm createOrganizm(int count, PredatorType type){
+        return null;
+    }
+
     public static Plants createPlants() {
         Plants plants = null;
         Random random = new Random();

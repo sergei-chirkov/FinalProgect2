@@ -1,8 +1,9 @@
 package ru.javarush.chirkov.tasks;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import ru.javarush.chirkov.island.Island;
 import ru.javarush.chirkov.organizm.*;
@@ -25,8 +26,15 @@ public class TaskMove {
 
 
 
-    public void run() {
-       animal.move(oldLocation,newLocation);
+    public static void run(Island island) {
+        island.locations.forEach(location -> location.organizms.stream()
+                .filter(organizm -> organizm instanceof Animal)
+                .forEach(organizm -> new TaskMove((Animal) organizm, ((Animal) organizm).getLocation(), ((Animal) organizm).newLocation())));
+
+        queue.forEach(taskMove -> taskMove.animal.move(taskMove.oldLocation, taskMove.newLocation));
+        queue.clear();
         }
-    }
+
+}
+
 

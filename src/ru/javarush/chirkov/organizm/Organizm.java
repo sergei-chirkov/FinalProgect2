@@ -3,22 +3,27 @@ package ru.javarush.chirkov.organizm;
 import java.util.Random;
 
 public class Organizm {
+    public static final String MALE = "Male";
+    public static final String FEMALE = "Female";
     private double weight;
     private final int maxAnimal;
     private final int speed;
     private final double needfood;
-    private final boolean sex;
 
-    public boolean isLife() {
-        return isLife;
-    }
+    // if true - male else false female
+    private final String gender;
 
-    private  boolean isLife;
-    private  double foodStatus;
+    private boolean isLife;
+    private double foodStatus;
 
     {
         Random random = new Random();
-        sex = random.nextBoolean();
+        if (random.nextBoolean()) {
+            gender = MALE;
+        } else {
+            gender = FEMALE;
+        }
+
         isLife = true;
     }
 
@@ -27,13 +32,21 @@ public class Organizm {
         this.maxAnimal = maxAnimal;
         this.speed = speed;
         this.needfood = needfood;
-        this.foodStatus = needfood/2;
+        this.foodStatus = needfood / 2;
+    }
+
+    public boolean isLife() {
+        return isLife;
     }
 
     public double getWeight() {
         return weight;
     }
-    public void setWeight(double newWeight){this.weight = newWeight;}
+
+    public void setWeight(double newWeight) {
+        this.weight = newWeight;
+    }
+
     public int getMaxAnimal() {
         return maxAnimal;
     }
@@ -50,13 +63,23 @@ public class Organizm {
     public double getFoodStatus() {
         return foodStatus;
     }
-    public double setFoodStatus(double weightFood){
+
+    public String isGender() {
+        String man = "Male";
+        String woman = "Female";
+
+        return gender.equals(MALE) ? man : woman;
+    }
+
+
+    public double setFoodStatus(double weightFood) {
         double residue = weightFood - needfood + foodStatus;
         this.foodStatus = Math.min(foodStatus + weightFood, needfood);
 
         return residue > 0 ? residue : 0;
     }
-    public void setStausLifeIsDead(){
+
+    public void setStausLifeIsDead() {
         this.isLife = false;
     }
 }
