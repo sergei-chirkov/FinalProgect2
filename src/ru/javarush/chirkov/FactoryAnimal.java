@@ -5,66 +5,34 @@ import ru.javarush.chirkov.organizm.herbivore.*;
 import ru.javarush.chirkov.organizm.plants.*;
 import ru.javarush.chirkov.organizm.predator.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class FactoryAnimal {
-    public enum PredatorType {
-        Wolf, Fox, Beer, Orel
-    }
-    public enum HerbivoreType {
-        Dug, Cow, Horse
-    }
-    public enum PlantsType{
-        Grass
+//    Fox, Beer, Orel,Cow, Horse,
+    public enum OrganizmType {
+        Wolf, Dug, Grass
     }
 
-    public static List<Organizm> creatOrganizm(Organizm organizm, int count){
-        List<Organizm> list = new ArrayList<>();
-        for(int i = 0; i < count; i++){
-            list.add(organizm);
-        }
-        return list;
-    }
-
-    public static Predator createPredator() {
-        Predator predator = null;
+    public static OrganizmType generatorTypeOrganizm(){
         Random random = new Random();
-        int value = random.nextInt(PredatorType.values().length) ;
-        PredatorType type = PredatorType.values()[value];
+        int value = random.nextInt(OrganizmType.values().length) ;
+        OrganizmType type = OrganizmType.values()[value];
+        return type;
+    }
+
+
+    public static Organizm createOrganizm(OrganizmType type) {
+        Organizm organizm = null;
 
         switch (type) {
-            case Wolf -> predator = new Wolf();
+            case Wolf -> organizm = new Wolf();
+
+            case  Dug -> organizm = new Dug();
+
+            case Grass -> organizm = new Grass();
 
         }
-        return predator;
-    }
-       public  static Organizm createOrganizm(int count, PredatorType type){
-        return null;
+        return organizm;
     }
 
-    public static Plants createPlants() {
-        Plants plants = null;
-        Random random = new Random();
-        int value = random.nextInt(PlantsType.values().length);
-        PlantsType type = PlantsType.values()[value];
-
-        switch (type) {
-            case Grass -> plants = new Grass();
-
-        }
-        return plants;
-    }
-    public static Herbivore createHerbivore() {
-        Herbivore herbivore = null;
-        Random random = new Random();
-        int value = random.nextInt(HerbivoreType.values().length);
-        HerbivoreType type = HerbivoreType.values()[value];
-
-        switch (type) {
-            case  Dug -> herbivore = new Dug();
-        }
-        return herbivore;
-    }
 }

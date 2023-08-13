@@ -20,38 +20,15 @@ public class Location {
     }
 
     public void addOrganizm() {
-
-        Organizm herbivore = FactoryAnimal.createHerbivore();
-        Organizm predator = FactoryAnimal.createPredator();
-        Organizm plants = FactoryAnimal.createPlants();
+        int length = FactoryAnimal.OrganizmType.values().length;
         Random random = new Random();
-
-        if (herbivore != null) {
-            int valueHerbivore = random.nextInt(herbivore.getMaxAnimal());
-            for (int i = 0; i < valueHerbivore; i++) {
-                organizms.add(herbivore);
+        for(int i = 0; i < 3; i ++){
+            FactoryAnimal.OrganizmType organizmType = FactoryAnimal.generatorTypeOrganizm();
+            Organizm organizm = FactoryAnimal.createOrganizm(organizmType);
+            int maxAnimal = organizm.getMaxAnimal();
+            for (int j = 0; j < random.nextInt(maxAnimal); j++){
+                organizms.add(FactoryAnimal.createOrganizm(organizmType));
             }
-
         }
-        if (predator != null) {
-            int valuePredator = random.nextInt(predator.getMaxAnimal());
-            for (int i = 0; i < valuePredator; i++) {
-                organizms.add(predator);
-            }
-
-        }
-
-        if (plants != null) {
-            int valuePlants = random.nextInt(plants.getMaxAnimal());
-            for (int i = 0; i < valuePlants; i++) {
-                organizms.add(plants);
-            }
-
-        }
-
     }
-
-
-
-
 }

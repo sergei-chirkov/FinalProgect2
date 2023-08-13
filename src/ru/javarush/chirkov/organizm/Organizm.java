@@ -1,10 +1,17 @@
 package ru.javarush.chirkov.organizm;
 
-import java.util.Random;
+import ru.javarush.chirkov.FactoryAnimal;
+import ru.javarush.chirkov.island.Island;
+import ru.javarush.chirkov.island.Location;
+import ru.javarush.chirkov.servesice.Reproduction;
+import ru.javarush.chirkov.view.Statistics;
 
-public class Organizm {
+import java.util.*;
+
+public class Organizm implements Reproduction{
     public static final String MALE = "Male";
     public static final String FEMALE = "Female";
+    private Map<String,Integer> mapForEat;
     private double weight;
     private final int maxAnimal;
     private final int speed;
@@ -27,12 +34,13 @@ public class Organizm {
         isLife = true;
     }
 
-    public Organizm(double weight, int maxAnimal, int speed, double needfood) {
+    public Organizm(double weight, int maxAnimal, int speed, double needfood, Map<String,Integer> mapForEat) {
         this.weight = weight;
         this.maxAnimal = maxAnimal;
         this.speed = speed;
         this.needfood = needfood;
         this.foodStatus = needfood / 2;
+        this.mapForEat = mapForEat;
     }
 
     public boolean isLife() {
@@ -64,6 +72,10 @@ public class Organizm {
         return foodStatus;
     }
 
+    public Map<String, Integer> getMapForEat() {
+        return mapForEat;
+    }
+
     public String isGender() {
         String man = "Male";
         String woman = "Female";
@@ -81,5 +93,30 @@ public class Organizm {
 
     public void setStausLifeIsDead() {
         this.isLife = false;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Organizm organizm = (Organizm) o;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(maxAnimal, speed, needfood);
+    }
+
+    @Override
+    public void reproduction(int countReprodoction, int idLocation) {
+        Island island = Island.getInstance();
+        Location location = island.locations.get(idLocation);
+        String nameClass = this.getClass().getSimpleName();
+        FactoryAnimal.OrganizmType organizmType = FactoryAnimal.OrganizmType.valueOf(nameClass);
+        for (int i = 0; i < countReprodoction; i++){
+            location.organizms.add(FactoryAnimal.createOrganizm(organizmType));
+        }
     }
 }

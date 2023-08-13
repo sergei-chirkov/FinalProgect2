@@ -6,26 +6,27 @@ import ru.javarush.chirkov.organizm.Organizm;
 import ru.javarush.chirkov.organizm.plants.Plants;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public abstract class Herbivore extends Animal {
-    public Herbivore(double weight, int maxAnimal, int speed, double needfood) {
-        super(weight, maxAnimal, speed, needfood);
+    public Herbivore(double weight, int maxAnimal, int speed, double needfood, Map<String,Integer> mapForEat) {
+        super(weight, maxAnimal, speed, needfood, mapForEat);
     }
 
 
-    @Override
-    public void eat(Location location) {
-
-        List<Organizm> plantsList = location.organizms.stream().filter(organizm -> organizm instanceof Plants).collect(Collectors.toList());
-        plantsList.forEach(organizm -> {
-            if (this.isLife()) {
-                double weight = organizm.getWeight();
-                if (this.getFoodStatus() < this.getNeedfood()) {
-                    organizm.setWeight(setFoodStatus(weight));
-                    organizm.setStausLifeIsDead();
-                }
-            }
-        });
-    }
+//    @Override
+//    public void eat(Location location) {
+//
+//        List<Organizm> plantsList = location.organizms.stream().filter(organizm -> organizm instanceof Plants).collect(Collectors.toList());
+//        plantsList.forEach(organizm -> {
+//            if (this.isLife()) {
+//                double weight = organizm.getWeight();
+//                if (this.getFoodStatus() < this.getNeedfood()) {
+//                    organizm.setWeight(setFoodStatus(weight));
+//                    organizm.setStausLifeIsDead();
+//                }
+//            }
+//        });
+//    }
 }

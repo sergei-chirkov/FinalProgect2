@@ -29,6 +29,7 @@ public class Statistics {
 
 
     public Map<Organizm, Integer> getMapCountOrganizm(List<Organizm> organizms) {
+
         Map<Organizm, Integer> map = new HashMap<>();
         Set<Organizm> organizmSet = new HashSet<>(organizms);
 
@@ -37,11 +38,12 @@ public class Statistics {
             for (Organizm org : organizms) {
                 if (org.getClass().equals(organizm.getClass())) {
                     count++;
-                }
 
+                }
             }
             map.put(organizm, count);
         }
+
         return map;
     }
 

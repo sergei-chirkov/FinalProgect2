@@ -1,19 +1,19 @@
 package ru.javarush.chirkov.organizm;
 
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
+import ru.javarush.chirkov.FactoryAnimal;
 import ru.javarush.chirkov.island.Island;
 import ru.javarush.chirkov.island.Location;
 import ru.javarush.chirkov.servesice.*;
+import ru.javarush.chirkov.view.Statistics;
 
 public abstract class Animal extends Organizm implements Moving, Eating, Died, Reproduction{
-    int voluem;
 
-    public Animal(double weight, int maxAnimal, int speed, double needfood) {
-        super(weight,maxAnimal,speed,needfood);
+
+    public Animal(double weight, int maxAnimal, int speed, double needfood, Map<String,Integer> mapForEat) {
+        super(weight,maxAnimal,speed,needfood, mapForEat);
     }
 
 
@@ -66,15 +66,43 @@ public abstract class Animal extends Organizm implements Moving, Eating, Died, R
     }
 
     @Override
+    public void eat(Location location) {
+        if(this.isLife()){
+            List<Organizm> organizms = location.organizms;
+            for (Organizm organizm : organizms){
+                if(!organizm.equals(this)){
+                    Map<String, Integer> mapForEat = this.getMapForEat();
+                    Integer probabilityForEating = mapForEat.get(organizm.getClass().getSimpleName());
+                    if(probabilityForEating !=null){
+                        Random random = new Random();
+                        int probability = random.nextInt(100);
+                        if(probability < probabilityForEating){
+                            System.out.println("eat");
+                            double weight = organizm.getWeight();
+                            if (this.getFoodStatus() < this.getNeedfood()) {
+                                System.out.println("location "+location.getId() + " " + this.getClass().getSimpleName() + " eat "
+                                        + organizm.getClass().getSimpleName());
+                                organizm.setWeight(this.setFoodStatus(weight));
+                                organizm.setStausLifeIsDead();
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    @Override
     public void died() {
         if(this.getFoodStatus() == 0){
             this.setStausLifeIsDead();
         }
     }
 
-    @Override
-    public void reproduction() {
 
-    }
+
 }
 
