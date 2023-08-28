@@ -12,14 +12,13 @@ public class TaskMove {
 
     private final int oldLocation;
     private final Animal animal;
-    private final int newLocation;
+
 
     public static Queue<TaskMove> queue = new LinkedList<>();
 
-    public TaskMove(Animal animal, int oldLocation, int newLocation) {
+    public TaskMove(Animal animal, int oldLocation) {
         this.animal = animal;
         this.oldLocation = oldLocation;
-        this.newLocation = newLocation;
         queue.add(this);
     }
 
@@ -29,9 +28,9 @@ public class TaskMove {
     public static void run(Island island) {
         island.locations.forEach(location -> location.organizms.stream()
                 .filter(organizm -> organizm instanceof Animal)
-                .forEach(organizm -> new TaskMove((Animal) organizm, ((Animal) organizm).getLocation(), ((Animal) organizm).newLocation())));
+                .forEach(organizm -> new TaskMove((Animal) organizm, ((Animal) organizm).getLocation())));
 
-        queue.forEach(taskMove -> taskMove.animal.move(taskMove.oldLocation, taskMove.newLocation));
+        queue.forEach(taskMove -> taskMove.animal.move(taskMove.oldLocation));
         queue.clear();
         }
 

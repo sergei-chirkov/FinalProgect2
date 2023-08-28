@@ -17,12 +17,6 @@ public class Statistics {
             System.out.print("location " + location.getId() + " ");
             mapCountOrganizm.forEach((key, value) -> System.out.print(key + " " + value + " "));
             System.out.print("\n");
-//            Map<Organizm, Integer> mapOrganizmGenderMale = getMapOrganizmGender(location.organizms, Organizm.MALE);
-//            Map<Organizm, Integer> mapOrganizmGenderFemale = getMapOrganizmGender(location.organizms, Organizm.FEMALE);
-//            mapOrganizmGenderMale.forEach((key, value) -> System.out.print("\tMale " + key + " " + value + " "));
-//            System.out.print("\n");
-//            mapOrganizmGenderFemale.forEach((key, value) -> System.out.print("\tFemale " + key + " " + value + " "));
-//            System.out.print("\n");
         }
 
     }

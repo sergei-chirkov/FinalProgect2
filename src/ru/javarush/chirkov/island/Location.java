@@ -25,6 +25,7 @@ public class Location {
         for(int i = 0; i < 3; i ++){
             FactoryAnimal.OrganizmType organizmType = FactoryAnimal.generatorTypeOrganizm();
             Organizm organizm = FactoryAnimal.createOrganizm(organizmType);
+
             int maxAnimal = organizm.getMaxAnimal();
             for (int j = 0; j < random.nextInt(maxAnimal); j++){
                 organizms.add(FactoryAnimal.createOrganizm(organizmType));

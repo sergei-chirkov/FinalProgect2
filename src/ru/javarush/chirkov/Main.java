@@ -1,9 +1,6 @@
 package ru.javarush.chirkov;
 
 import ru.javarush.chirkov.island.Island;
-import ru.javarush.chirkov.organizm.Organizm;
-import ru.javarush.chirkov.organizm.predator.Wolf;
-import ru.javarush.chirkov.tasks.TaskMove;
 import ru.javarush.chirkov.tasks.Tasks;
 import ru.javarush.chirkov.view.Statistics;
 

@@ -1,10 +1,9 @@
 package ru.javarush.chirkov.tasks;
 
 import ru.javarush.chirkov.island.Island;
-import ru.javarush.chirkov.organizm.Animal;
 import ru.javarush.chirkov.view.Statistics;
 
-import java.util.function.BiConsumer;
+
 
 public class Tasks implements Runnable {
 

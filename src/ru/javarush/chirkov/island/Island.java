@@ -38,7 +38,5 @@ public class Island {
     }
 
 
-//    public Location getLocation(int id){
-//        locations.get(id).organizms.add();
-//    }
+
 }
