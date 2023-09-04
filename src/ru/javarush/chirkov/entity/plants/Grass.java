@@ -1,4 +1,4 @@
-package ru.javarush.chirkov.organizm.plants;
+package ru.javarush.chirkov.entity.plants;
 
 public class Grass extends Plants{
     private static final int WEIGTH = 1;

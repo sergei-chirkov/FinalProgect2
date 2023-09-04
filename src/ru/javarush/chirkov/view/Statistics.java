@@ -1,17 +1,18 @@
 package ru.javarush.chirkov.view;
 
-import ru.javarush.chirkov.island.Island;
-import ru.javarush.chirkov.island.Location;
-import ru.javarush.chirkov.organizm.Organizm;
+import ru.javarush.chirkov.entity.island.Island;
+import ru.javarush.chirkov.entity.island.Location;
+import ru.javarush.chirkov.entity.Organizm;
 
 import java.util.*;
 
 public class Statistics {
 
-
+    Island island = Island.getInstance();
     public void getStatistics() {
-        Island island = Island.getInstance();
+
         List<Location> locations = island.locations;
+
         for (Location location : locations) {
             Map<Organizm, Integer> mapCountOrganizm = getMapCountOrganizm(location.organizms);
             System.out.print("location " + location.getId() + " ");
@@ -57,6 +58,10 @@ public class Statistics {
             }
         }
         return map;
+    }
+
+    public int getPeriod(){
+        return island.getPeriod();
     }
 
 }

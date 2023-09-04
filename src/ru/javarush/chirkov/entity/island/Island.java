@@ -1,18 +1,26 @@
-package ru.javarush.chirkov.island;
-
-import ru.javarush.chirkov.FactoryAnimal;
+package ru.javarush.chirkov.entity.island;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Island {
-    private final int lenght = 2;
-    private final int height = 2;
+
+    private  int lenght;
+    private  int height;
+    private  int period;
     private static Island island;
 
     public List<Location> locations = new ArrayList<>();
 
     private Island() {
+        Scanner console = new Scanner(System.in);
+        System.out.println("Enter Island's LENGHT:");
+        this.lenght = console.nextInt();
+        System.out.println("Enter Island's HEIGHT:");
+        this.height = console.nextInt();
+        System.out.println("Enter Period for Game:");
+        this.period = console.nextInt();
         //creat island
         for (int i = 0; i < lenght * height; i++) {
             locations.add(new Location(i));
@@ -37,6 +45,7 @@ public class Island {
         return height;
     }
 
-
-
+    public int getPeriod() {
+        return period;
+    }
 }

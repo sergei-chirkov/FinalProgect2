@@ -1,35 +1,15 @@
 package ru.javarush.chirkov.tasks;
 
-import ru.javarush.chirkov.island.Island;
-import ru.javarush.chirkov.view.Statistics;
+import java.util.concurrent.locks.ReentrantLock;
 
-
-
-public class Tasks implements Runnable {
-
+public  class Tasks implements Runnable{
+    private static final ReentrantLock lockTask = new ReentrantLock(true);
     @Override
     public void run() {
-        Island island = Island.getInstance();
-        Statistics statistics = new Statistics();
 
-        statistics.getStatistics();
-        System.out.println("Task Move");
-        TaskMove.run(island);
-        statistics.getStatistics();
+    }
 
-        System.out.println("Task Eat");
-        TaskEat taskEat = new TaskEat();
-        taskEat.run(island);
-        statistics.getStatistics();
-
-        System.out.println("Task Died");
-        TaskDied taskDied = new TaskDied();
-        taskDied.run();
-        statistics.getStatistics();
-
-        System.out.println("Task Reproduct");
-        TaskReproduct.run();
-        statistics.getStatistics();
-
+    public static ReentrantLock getLockTask() {
+        return lockTask;
     }
 }

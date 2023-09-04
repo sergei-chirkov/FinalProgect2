@@ -1,17 +1,17 @@
-package ru.javarush.chirkov.organizm;
+package ru.javarush.chirkov.entity;
 
-import ru.javarush.chirkov.FactoryAnimal;
-import ru.javarush.chirkov.island.Island;
-import ru.javarush.chirkov.island.Location;
+import ru.javarush.chirkov.repository.FactoryAnimal;
+import ru.javarush.chirkov.entity.island.Location;
 import ru.javarush.chirkov.servesice.Reproduction;
-import ru.javarush.chirkov.view.Statistics;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
 
-public class Organizm implements Reproduction{
+public class Organizm implements Reproduction {
     public static final String MALE = "Male";
     public static final String FEMALE = "Female";
-    private Map<String,Integer> mapForEat;
+    private final Map<String, Integer> mapForEat;
     private double weight;
     private final int maxAnimal;
     private final int speed;
@@ -22,6 +22,7 @@ public class Organizm implements Reproduction{
 
     private boolean isLife;
     private double foodStatus;
+    private final double needFoodEveryDay;
 
     {
         Random random = new Random();
@@ -34,13 +35,14 @@ public class Organizm implements Reproduction{
         isLife = true;
     }
 
-    public Organizm(double weight, int maxAnimal, int speed, double needfood, Map<String,Integer> mapForEat) {
+    public Organizm(double weight, int maxAnimal, int speed, double needfood, Map<String, Integer> mapForEat) {
         this.weight = weight;
         this.maxAnimal = maxAnimal;
         this.speed = speed;
         this.needfood = needfood;
         this.foodStatus = needfood / 2;
         this.mapForEat = mapForEat;
+        this.needFoodEveryDay = foodStatus / 2;
     }
 
     public boolean isLife() {
@@ -67,6 +69,9 @@ public class Organizm implements Reproduction{
         return needfood;
     }
 
+    public double getNeedFoodEveryDay() {
+        return needFoodEveryDay;
+    }
 
     public double getFoodStatus() {
         return foodStatus;
@@ -84,11 +89,13 @@ public class Organizm implements Reproduction{
     }
 
 
-    public double setFoodStatus(double weightFood) {
-        double residue = weightFood - needfood + foodStatus;
-        this.foodStatus = Math.min(foodStatus + weightFood, needfood);
+    public void setFoodStatus(double weightFood) {
+//        double residue = weightFood - needfood + foodStatus;
+//        this.foodStatus = Math.min(foodStatus + weightFood, needfood);
+//
+//        return residue > 0 ? residue : 0;
 
-        return residue > 0 ? residue : 0;
+        foodStatus = weightFood;
     }
 
     public void setStausLifeIsDead() {
@@ -100,7 +107,6 @@ public class Organizm implements Reproduction{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Organizm organizm = (Organizm) o;
         return true;
     }
 
@@ -110,13 +116,20 @@ public class Organizm implements Reproduction{
     }
 
     @Override
-    public void reproduction(int countReprodoction, int idLocation) {
-        Island island = Island.getInstance();
-        Location location = island.locations.get(idLocation);
+    public void reproduction(int countReprodoction, Location location) {
+
+        location.getLock().lock();
+
         String nameClass = this.getClass().getSimpleName();
         FactoryAnimal.OrganizmType organizmType = FactoryAnimal.OrganizmType.valueOf(nameClass);
-        for (int i = 0; i < countReprodoction; i++){
-            location.organizms.add(FactoryAnimal.createOrganizm(organizmType));
+
+        for (int i = 0; i < countReprodoction; i++) {
+            if(this.getMaxAnimal() > location.getCountOrganizm(this)) {
+                location.organizms.add(FactoryAnimal.createOrganizm(organizmType));
+            }
         }
+        location.getLock().unlock();
+
+
     }
 }

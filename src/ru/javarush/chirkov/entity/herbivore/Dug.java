@@ -1,4 +1,4 @@
-package ru.javarush.chirkov.organizm.herbivore;
+package ru.javarush.chirkov.entity.herbivore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ public class Dug extends Herbivore{
     private static final int MAXANIMAL = 200;
     private static final int SPEED = 4;
     private static final double NEEDFOOD = 0.15;
-    private static Map<String,Integer> mapForDug = new HashMap<>();
+    private static final Map<String,Integer> mapForDug = new HashMap<>();
 
     static {
         mapForDug.put("Caterpillar" , 90); //гусеница

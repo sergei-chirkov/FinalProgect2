@@ -1,38 +1,39 @@
 package ru.javarush.chirkov.tasks;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.concurrent.atomic.AtomicInteger;
+import ru.javarush.chirkov.entity.island.Island;
+import ru.javarush.chirkov.entity.island.Location;
+import ru.javarush.chirkov.entity.Animal;
 
-import ru.javarush.chirkov.island.Island;
-import ru.javarush.chirkov.organizm.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TaskMove {
+public class TaskMove extends Tasks {
 
-    private final int oldLocation;
-    private final Animal animal;
+    public static List<Move> queue = new ArrayList<>();
 
+    public static class Move {
+        private final Location oldLocation;
+        private final Animal animal;
 
-    public static Queue<TaskMove> queue = new LinkedList<>();
-
-    public TaskMove(Animal animal, int oldLocation) {
-        this.animal = animal;
-        this.oldLocation = oldLocation;
-        queue.add(this);
+        public Move(Animal animal, Location oldLocation) {
+            this.oldLocation = oldLocation;
+            this.animal = animal;
+            queue.add(this);
+        }
     }
 
-
-
-
-    public static void run(Island island) {
+    @Override
+    public void run() {
+        getLockTask().lock();
+        Island island = Island.getInstance();
         island.locations.forEach(location -> location.organizms.stream()
                 .filter(organizm -> organizm instanceof Animal)
-                .forEach(organizm -> new TaskMove((Animal) organizm, ((Animal) organizm).getLocation())));
+                .forEach(organizm -> new Move((Animal) organizm, location)));
 
         queue.forEach(taskMove -> taskMove.animal.move(taskMove.oldLocation));
         queue.clear();
-        }
+        getLockTask().unlock();
+    }
 
 }
 

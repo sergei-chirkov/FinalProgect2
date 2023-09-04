@@ -1,7 +1,7 @@
 package ru.javarush.chirkov.servesice;
 
-import ru.javarush.chirkov.island.Location;
+import ru.javarush.chirkov.entity.island.Location;
 
 public interface Reproduction {
-    void reproduction(int countReprodoction, int idLocation);
+    void reproduction(int countReprodoction, Location location);
 }

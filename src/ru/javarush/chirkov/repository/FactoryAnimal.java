@@ -1,9 +1,9 @@
-package ru.javarush.chirkov;
+package ru.javarush.chirkov.repository;
 
-import ru.javarush.chirkov.organizm.Organizm;
-import ru.javarush.chirkov.organizm.herbivore.*;
-import ru.javarush.chirkov.organizm.plants.*;
-import ru.javarush.chirkov.organizm.predator.*;
+import ru.javarush.chirkov.entity.Organizm;
+import ru.javarush.chirkov.entity.herbivore.*;
+import ru.javarush.chirkov.entity.plants.*;
+import ru.javarush.chirkov.entity.predator.*;
 
 import java.util.Random;
 
@@ -16,8 +16,7 @@ public class FactoryAnimal {
     public static OrganizmType generatorTypeOrganizm(){
         Random random = new Random();
         int value = random.nextInt(OrganizmType.values().length) ;
-        OrganizmType type = OrganizmType.values()[value];
-        return type;
+        return OrganizmType.values()[value];
     }
 
 

@@ -1,32 +1,34 @@
 package ru.javarush.chirkov.tasks;
 
-import ru.javarush.chirkov.island.Island;
-import ru.javarush.chirkov.island.Location;
-import ru.javarush.chirkov.organizm.Organizm;
+import ru.javarush.chirkov.entity.island.Island;
+import ru.javarush.chirkov.entity.island.Location;
+import ru.javarush.chirkov.entity.Organizm;
 import ru.javarush.chirkov.servesice.Died;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class TaskDied {
-    void run() {
+
+public class TaskDied extends Tasks{
+    @Override
+    public void run() {
+
+        getLockTask().lock();
         Island island = Island.getInstance();
         island.locations.forEach(location -> location.organizms.stream()
                 .filter(organizm -> organizm instanceof Died)
                 .forEach(organizm -> ((Died) organizm).died()));
         List<Location> locationList = island.locations;
-       for (int i = 0; i < locationList.size(); i++){
-            for (int j = 0; j < locationList.get(i).organizms.size(); j++){
-                if(!locationList.get(i).organizms.get(j).isLife()){
-                    Organizm organizm = locationList.get(i).organizms.get(j);
-                    locationList.get(i).organizms.remove(organizm);
+        for (Location location : locationList) {
+            for (int j = 0; j < location.organizms.size(); j++) {
+                if (!location.organizms.get(j).isLife()) {
+                    Organizm organizm = location.organizms.get(j);
+                    location.organizms.remove(organizm);
                 }
 
-                }
             }
+        }
+        getLockTask().unlock();
 
-//        Island island1 = Island.getInstance();
     }
 
 }

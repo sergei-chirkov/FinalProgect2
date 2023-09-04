@@ -1,29 +1,32 @@
 package ru.javarush.chirkov.tasks;
 
-import ru.javarush.chirkov.FactoryAnimal;
-import ru.javarush.chirkov.island.Island;
-import ru.javarush.chirkov.island.Location;
-import ru.javarush.chirkov.organizm.Organizm;
-import ru.javarush.chirkov.servesice.Eating;
-import ru.javarush.chirkov.servesice.Reproduction;
+import ru.javarush.chirkov.entity.island.Island;
+import ru.javarush.chirkov.entity.island.Location;
+import ru.javarush.chirkov.entity.Organizm;
 import ru.javarush.chirkov.view.Statistics;
 
 import java.util.*;
 
-public class TaskReproduct {
-    private final Organizm organizm;
-    private final int countReproduct;
-    private final int idLocation;
-    private static Queue<TaskReproduct> queue = new LinkedList<>();
+public class TaskReproduct extends Tasks {
 
-    public TaskReproduct(Organizm organizm, int countReproduct, int location) {
-        this.organizm = organizm;
-        this.countReproduct = countReproduct;
-        this.idLocation = location;
-        queue.add(this);
+    private static final List<Reproduct> queue = new ArrayList<>();
+
+    public static class Reproduct {
+        private final Organizm organizm;
+        private final int countReproduct;
+        private final Location location;
+
+        public Reproduct(Organizm organizm, int countReproduct, Location location) {
+            this.organizm = organizm;
+            this.countReproduct = countReproduct;
+            this.location = location;
+            queue.add(this);
+        }
     }
 
-    static void run() {
+    @Override
+    public void run() {
+        getLockTask().lock();
         Island island = Island.getInstance();
         Statistics statistics = new Statistics();
         for (Location location : island.locations) {
@@ -45,16 +48,16 @@ public class TaskReproduct {
                     if (countForReproduction > 0) {
                         Random random = new Random();
                         int reproduct = random.nextInt(2);
-                        queue.add(new TaskReproduct(organizm, reproduct, location.getId()));
+                        queue.add(new Reproduct(organizm, reproduct, location));
                     }
 
                 }
             }
 
         }
-        queue.forEach(taskReproduct -> taskReproduct.organizm.reproduction(taskReproduct.countReproduct, taskReproduct.idLocation));
+        queue.forEach(taskReproduct -> taskReproduct.organizm.reproduction(taskReproduct.countReproduct, taskReproduct.location));
         queue.clear();
-
+        getLockTask().unlock();
     }
 
 
