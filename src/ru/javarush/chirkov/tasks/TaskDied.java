@@ -14,6 +14,18 @@ public class TaskDied extends Tasks{
 
         getLockTask().lock();
         Island island = Island.getInstance();
+
+        for(Location location : island.locations){
+            location.getLock().lock();
+            for (Organizm organizm: location.organizms){
+
+                double foodStatus = organizm.getFoodStatus();
+                double newFoodStatus = foodStatus - organizm.getNeedFoodEveryDay();
+                organizm.setFoodStatus(newFoodStatus);
+            }
+            location.getLock().unlock();
+        }
+
         island.locations.forEach(location -> location.organizms.stream()
                 .filter(organizm -> organizm instanceof Died)
                 .forEach(organizm -> ((Died) organizm).died()));

@@ -21,7 +21,6 @@ public class StartGame extends Thread {
         tasksList.add(new TaskDied());
         tasksList.add(new TaskMove());
         tasksList.add(new TaskReproduct());
-        tasksList.add(new TaskDay());
         tasksList.add(new TaskView());
 
         ExecutorService service = Executors.newFixedThreadPool(4);
